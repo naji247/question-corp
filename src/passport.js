@@ -14,7 +14,7 @@
  */
 
 import passport from 'passport';
-import { User } from './data/models';
+import User from './data/models/User';
 const passportJWT = require('passport-jwt');
 const ExtractJWT = passportJWT.ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
