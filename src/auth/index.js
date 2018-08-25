@@ -8,6 +8,7 @@ import User from '../data/models/User';
 import moment from 'moment';
 import bcrypt from 'bcryptjs';
 import _ from 'lodash';
+import EmailDomain from '../data/models/EmailDomain'
 
 /* POST login. */
 
@@ -46,14 +47,50 @@ const authenticate = (req, res, err, user, info) => {
 
 auth.post('/signup', async function(req, res, next) {
   const {
+    firstName,
+    lastName,
     email,
     password,
   } = req.body;
 
-  var errorMessage = [];
+  let domain;
+  let errorMessage = [];
+
+  if (!firstName)
+    errorMessage.push('Missing first name.');
+
+  if (!lastName)
+    errorMessage.push('Missing last name.');
+
   if (!email) {
     errorMessage.push('Missing email.');
+  } else {
+    domain = getEmailParts(email).domain;
   }
+
+  if (!domain) {
+    errorMessage.push('Email is missing a valid domain.');
+    return res.status(400).json({
+      message: errorMessage
+    });
+  }
+
+  let foundDomains = await EmailDomain.findAll({
+    where: {
+      domain_name: domain
+    }
+  });
+
+  let foundDomain = _.first(foundDomains);
+
+  if (!foundDomain || !foundDomain.company_id) {
+    errorMessage.push('Your email domain is not associated with a company yet.');
+    return res.status(400).json({
+      message: errorMessage
+    });
+  }
+
+  let companyId = foundDomain.company_id;
 
   if (!password) {
     errorMessage.push('Missing password.');
@@ -68,8 +105,11 @@ auth.post('/signup', async function(req, res, next) {
   try {
     let hashedPassword = await bcrypt.hash(password, 10);
     let user = User.build({
+      first_name: firstName,
+      last_name: lastName,
       email: email,
       password: hashedPassword,
+      company_id: companyId,
       created_at: moment(),
       updated_at: moment()
     });
@@ -98,3 +138,30 @@ auth.post('/login', function(req, res, next) {
     return authenticate(req, res, err, user, info);
   })(req, res);
 });
+
+function getEmailParts( strEmail ){
+  // Set up a default structure with null values
+  // incase our email matching fails.
+  var objParts = {
+    user: null,
+    domain: null,
+    ext: null
+  };
+
+  // Get the parts of the email address by leveraging
+  // the String::replace method. Notice that we are
+  // matching on the whole string using ^...$ notation.
+  strEmail.replace(
+    new RegExp( "^(.+)@(.+)\\.(\\w+)$" , "i" ),
+
+    // Send the match to the sub-function.
+    function( $0, $1, $2, $3 ){
+      objParts.user = $1;
+      objParts.domain = `${$2}.${$3}`;
+      objParts.ext = $3;
+    }
+  );
+
+  // Return the "potentially" updated parts structure.
+  return( objParts );
+}
