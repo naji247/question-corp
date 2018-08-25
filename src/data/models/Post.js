@@ -10,55 +10,42 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const Post = Model.define(
-  'post',
-  {
-    id: {
-      type: DataType.UUID,
-      defaultValue: DataType.UUIDV1,
-      primaryKey: true,
-    },
+const Post = Model.define('post', {
+  id: {
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV1,
+    primaryKey: true
+  },
 
-    user_id: {
-      type: DataType.UUID,
-      references: { model: 'user', key: 'id' }
-    },
+  user_id: {
+    type: DataType.UUID,
+    references: { model: 'user', key: 'id' }
+  },
 
-    title: {
-      type: DataType.STRING(255),
-      allowNull: false
-    },
+  title: {
+    type: DataType.STRING(255),
+    allowNull: false
+  },
 
-    body: {
-      type: DataType.TEXT('long'),
-      allowNull: false
-    },
+  body: {
+    type: DataType.TEXT('long'),
+    allowNull: false
+  },
 
-    is_anonymous: {
-      type: DataType.BOOLEAN,
-      defaultValue: false
-    },
+  is_anonymous: {
+    type: DataType.BOOLEAN,
+    defaultValue: false
+  },
 
-    created_at: {
-      allowNull: false,
-      type: DataType.DATE,
-    },
+  created_at: {
+    allowNull: false,
+    type: DataType.DATE
+  },
 
-    updated_at: {
-      allowNull: false,
-      type: DataType.DATE,
-    },
-
-    createdAt: {
-      type: DataType.DATE,
-      field: 'created_at',
-    },
-
-    updatedAt: {
-      type: DataType.DATE,
-      field: 'updated_at',
-    },
+  updated_at: {
+    allowNull: false,
+    type: DataType.DATE
   }
-);
+});
 
 export default Post;

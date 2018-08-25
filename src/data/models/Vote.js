@@ -10,42 +10,39 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const Vote = Model.define(
-  'vote',
-  {
-    id: {
-      type: DataType.UUID,
-      defaultValue: DataType.UUIDV1,
-      primaryKey: true,
-    },
+const Vote = Model.define('vote', {
+  id: {
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV1,
+    primaryKey: true
+  },
 
-    user_id: {
-      type: DataType.UUID,
-      references: { model: 'user', key: 'id' },
-      allowNull: false
-    },
+  user_id: {
+    type: DataType.UUID,
+    references: { model: 'user', key: 'id' },
+    allowNull: false
+  },
 
-    post_id: {
-      type: DataType.UUID,
-      references: { model: 'post', key: 'id'},
-      allowNull: false
-    },
+  post_id: {
+    type: DataType.UUID,
+    references: { model: 'post', key: 'id' },
+    allowNull: false
+  },
 
-    value: {
-      type: DataType.INTEGER,
-      allowNull: false
-    },
+  value: {
+    type: DataType.INTEGER,
+    allowNull: false
+  },
 
-    createdAt: {
-      type: DataType.DATE,
-      field: 'created_at',
-    },
+  createdAt: {
+    type: DataType.DATE,
+    field: 'created_at'
+  },
 
-    updatedAt: {
-      type: DataType.DATE,
-      field: 'updated_at',
-    },
+  updatedAt: {
+    type: DataType.DATE,
+    field: 'updated_at'
   }
-);
+});
 
 export default Vote;
