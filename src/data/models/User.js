@@ -16,48 +16,58 @@ const User = Model.define(
     id: {
       type: DataType.UUID,
       defaultValue: DataType.UUIDV1,
-      primaryKey: true,
+      primaryKey: true
     },
 
     password: {
       type: DataType.STRING(255),
-      allowNull: false,
+      allowNull: false
     },
 
     email: {
       type: DataType.STRING(255),
       validate: { isEmail: true },
-      unique: true,
+      unique: true
     },
 
     email_confirmed: {
       type: DataType.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
 
     first_name: {
       type: DataType.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
 
     last_name: {
       type: DataType.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
 
     phone_number: {
-      type: DataType.STRING(20),
+      type: DataType.STRING(20)
+    },
+
+    role: {
+      type: DataType.STRING(255),
+      defaultValue: 'employee'
+    },
+
+    company_id: {
+      type: DataType.UUID,
+      references: { model: 'company', key: 'id' }
     },
 
     createdAt: {
       type: DataType.DATE,
-      field: 'created_at',
+      field: 'created_at'
     },
 
     updatedAt: {
       type: DataType.DATE,
-      field: 'updated_at',
-    },
+      field: 'updated_at'
+    }
 
     // TODO: Add refresh token later to invalidate auth tokens
     // token: {
@@ -68,8 +78,8 @@ const User = Model.define(
     // },
   },
   {
-    indexes: [{ fields: ['email'] }],
-  },
+    indexes: [{ fields: ['email'] }]
+  }
 );
 
 export default User;
