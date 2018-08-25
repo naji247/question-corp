@@ -9,11 +9,10 @@
 
 import DataType from 'sequelize';
 import Model from '../sequelize';
-
 const Company = Model.define('company', {
   id: {
     type: DataType.UUID,
-    defaultValue: DataType.UUID,
+    defaultValue: DataType.UUIDV1,
     primaryKey: true
   },
 

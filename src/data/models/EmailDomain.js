@@ -13,7 +13,7 @@ import Model from '../sequelize';
 const EmailDomain = Model.define('email_domain', {
   id: {
     type: DataType.UUID,
-    defaultValue: DataType.UUID,
+    defaultValue: DataType.UUIDV1,
     primaryKey: true
   },
 

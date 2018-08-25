@@ -77,10 +77,13 @@ module.exports = {
   // resolver: // [string]
   // rootDir: // [string]
   // roots: // [array<string>]
-  // setupFiles: // [array]
+  "setupFiles": [
+    "<rootDir>/jest.init.js"
+  ],
   // setupTestFrameworkScriptFile: // [string]
   // snapshotSerializers: // [array<string>]
-  // testEnvironment: // [string]
+  "testEnvironment": "node",
+
   // testMatch: // [array<string>]
   // testPathIgnorePatterns: // [array<string>]
   // testRegex: // [string]

@@ -15,7 +15,7 @@ const Post = Model.define(
   {
     id: {
       type: DataType.UUID,
-      defaultValue: DataType.UUID,
+      defaultValue: DataType.UUIDV1,
       primaryKey: true,
     },
 

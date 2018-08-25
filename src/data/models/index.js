@@ -7,12 +7,9 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import sequelize from '../sequelize';
 import User from './User';
-
-function sync(...args) {
-  return sequelize.sync(...args);
-}
-
-export default { sync };
-export { User };
+import Company from "./Company";
+import EmailDomain from "./EmailDomain";
+import Post from "./Post";
+import Vote from "./Vote";
+export default { User, Company, EmailDomain, Post, Vote };
