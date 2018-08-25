@@ -10,7 +10,7 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const EmailDomain = Model.define('company', {
+const EmailDomain = Model.define('email_domain', {
   id: {
     type: DataType.UUID,
     defaultValue: DataType.UUID,

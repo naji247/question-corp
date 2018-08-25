@@ -1,2 +1,2 @@
-export DATABASE_PASSWORD=password
+export DATABASE_PASSWORD=admin
 export JWT_SECRET=secret
