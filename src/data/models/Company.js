@@ -22,10 +22,6 @@ const Company = Model.define('company', {
     allowNull: false
   },
 
-  email_domains: {
-    type: DataType.JSON
-  },
-
   createdAt: {
     type: DataType.DATE,
     field: 'created_at'
