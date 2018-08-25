@@ -138,25 +138,33 @@ module.exports = {
             id: uuidv4(),
             user_id: tonyID,
             post_id: buckyPostID1,
-            value: -1
+            value: -1,
+            created_at: moment().toDate(),
+            updated_at: moment().toDate()
           },
           {
             id: uuidv4(),
             user_id: tonyID,
             post_id: tonyPostID2,
-            value: 1
+            value: 1,
+            created_at: moment().toDate(),
+            updated_at: moment().toDate()
           },
           {
             id: uuidv4(),
             user_id: buckyID,
             post_id: tonyPostID1,
-            value: 1
+            value: 1,
+            created_at: moment().toDate(),
+            updated_at: moment().toDate()
           },
           {
             id: uuidv4(),
             user_id: buckyID,
             post_id: tonyPostID2,
-            value: 1
+            value: 1,
+            created_at: moment().toDate(),
+            updated_at: moment().toDate()
           }
         ]);
       });
