@@ -91,6 +91,22 @@ describe('Auth API Test', () => {
         done();
       });
   });
+
+  it('rejects users when the company domain doesnt exist', async (done) => {
+    request(app).post('/auth/signup')
+      .send({
+        firstName: "Naseem",
+        lastName: "alnaji",
+        email: "fakeemail@fmail.com",
+        password: "password"
+      })
+      .set('Accept', /application\/json/)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) return done(err);
+        done();
+      });
+  });
   afterEach(async () => {
     await truncate();
   });
