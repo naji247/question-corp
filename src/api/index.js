@@ -8,6 +8,7 @@ api.route('/users/:user_id').get(usersApi.getUserInfo);
 
 // Post routes
 api.route('/post').post(postsApi.createPost);
+api.route('/post').get(postsApi.getPosts);
 api.route('/post/:post_id').delete(postsApi.deletePost);
 
 // Vote routes

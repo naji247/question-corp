@@ -1,4 +1,5 @@
 import sequelize from '../data/sequelize';
+import passport from '../passport';
 import Post from '../data/models/Post';
 import Vote from '../data/models/Vote';
 import moment from 'moment';
@@ -44,6 +45,36 @@ export const createPost = async function(req, res) {
     });
   }
 };
+
+export const getPosts =  (req, res) => {
+  passport.authenticate('jwt', { session: false })(req, res, async function () {
+    const user_id = req.user.id;
+
+    var errorMessage = [];
+    if (!user_id) {
+      errorMessage.push('Missing user ID.');
+    }
+
+    if (errorMessage.length > 0) {
+      return res.status(400).json({
+        message: errorMessage
+      });
+    }
+
+    const postsForUsersCompanyQuery = `SELECT p.* FROM post p
+      JOIN "user" all_users ON all_users.id = p.user_id
+      JOIN company c ON c.id = all_users.company_id
+      JOIN "user" logged_in_user ON logged_in_user.id = '${user_id}'
+      WHERE logged_in_user.company_id = c.id;`;
+
+    try {
+      let posts = await sequelize.query(postsForUsersCompanyQuery, { type: sequelize.QueryTypes.SELECT })
+      res.send(posts);
+    } catch (err) {
+      res.status(500).send({message: "Failed to find any posts."});
+    }
+  })
+}
 
 export const deletePost = async function(req, res) {
   const post_id = req.params.post_id;

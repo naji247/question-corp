@@ -69,6 +69,7 @@ module.exports = {
             last_name: 'Stark',
             phone_number: '5551234567',
             role: 'admin',
+            company_id: starkIndustriesID,
             created_at: moment().toDate(),
             updated_at: moment().toDate()
           },
@@ -81,6 +82,7 @@ module.exports = {
             last_name: 'Barnes',
             phone_number: '5554561234',
             role: 'employee',
+            company_id: starkIndustriesID,
             created_at: moment().toDate(),
             updated_at: moment().toDate()
           },
@@ -93,6 +95,7 @@ module.exports = {
             last_name: 'Odinson',
             phone_number: '5557892345',
             role: 'employee',
+            company_id: asgardID,
             created_at: moment().toDate(),
             updated_at: moment().toDate()
           }
